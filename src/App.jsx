@@ -2,67 +2,67 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [currentValue, setCurrentValue] = useState(0);
-  const [oldCurrentValue, setOldCurrentValue] = useState(0);
-  const [operator, setOperator] = useState('');
+  const [currentValue, setCurrentValue] = useState("0");
+  const [oldCurrentValue, setOldCurrentValue] = useState("0");
+  const [operator, setOperator] = useState("");
 
   function inputNum(e) {
     const input = e.target.value;
-    if(currentValue == 0){
-      setCurrentValue(input)
-    }else{
-      setCurrentValue(currentValue + input)
+    if (currentValue === "0") {
+      setCurrentValue(input);
+    } else {
+      setCurrentValue(currentValue + input);
     }
   }
 
-  function handleACclick(){
-    setCurrentValue(0)
-    setOldCurrentValue(0);
-    setOperator('');
+  function handleACclick() {
+    setCurrentValue("0");
+    setOldCurrentValue("0");
+    setOperator("");
   }
 
   function percentage() {
-    const percent = currentValue / 100;
+    const percent = parseFloat(currentValue) / 100;
     setCurrentValue(percent.toFixed(2));
   }
 
-  function replace(){
-    setCurrentValue(currentValue * -1)
+  function replace() {
+    setCurrentValue((parseFloat(currentValue) * -1).toFixed(2));
   }
 
   function equal() {
-    if (operator === '') {
-      return
+    if (operator === "") {
+      return;
     }
 
     const oldVal = parseFloat(oldCurrentValue);
     const currentVal = parseFloat(currentValue);
 
-    if (operator === '/') {
-      const result = oldVal / currentVal || 0;
-      setCurrentValue(result);
-    } else if (operator === '*') {
-      const result = oldVal * currentVal || 0;
-      setCurrentValue(result);
-    } else if (operator === '+') {
-      const result = oldVal + currentVal || 0;
-      setCurrentValue(result);
-    } else if (operator === '-') {
-      const result = oldVal - currentVal || 0;
-      setCurrentValue(result);
+    if (operator === "/") {
+      const result = (oldVal / currentVal) || 0;
+      setCurrentValue(result.toFixed(2));
+    } else if (operator === "*") {
+      const result = (oldVal * currentVal) || 0;
+      setCurrentValue(result.toFixed(2));
+    } else if (operator === "+") {
+      const result = (oldVal + currentVal) || 0;
+      setCurrentValue(result.toFixed(2));
+    } else if (operator === "-") {
+      const result = (oldVal - currentVal) || 0;
+      setCurrentValue(result.toFixed(2));
     }
-    
-    setOldCurrentValue(0);
-    setOperator('');
+
+    setOldCurrentValue("0");
+    setOperator("");
   }
 
   function operatorCalc(e) {
-    if (operator !== '') {
+    if (operator !== "") {
       equal();
     }
     setOperator(e.target.value);
     setOldCurrentValue(currentValue);
-    setCurrentValue(0);
+    setCurrentValue("0");
   }
 
   return (
